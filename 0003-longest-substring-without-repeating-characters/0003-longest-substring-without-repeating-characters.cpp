@@ -10,7 +10,8 @@ public:
             mp[s[i]]++;
             length++;
             while(mp[s[i]] > 1){
-                mp[s[j++]]--;
+                mp[s[j]]--;
+                j++;
                 length--;
             }
             maxLen = max(maxLen,length);
