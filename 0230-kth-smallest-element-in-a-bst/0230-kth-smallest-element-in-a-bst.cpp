@@ -11,32 +11,45 @@
  */
 class Solution {
 public:
-    int ans = -1;
+//     int ans = -1;
     
-    int solve(TreeNode* root, int &i, int k){
-        if(root == NULL){
-            return -1;
-        }
-        if(root->left != NULL){
-            solve(root->left,i,k);
-        }
+//     int solve(TreeNode* root, int &i, int k){
+//         if(root == NULL){
+//             return -1;
+//         }
+//         if(root->left != NULL){
+//             solve(root->left,i,k);
+//         }
         
-        i++;
-        if(i == k){
-            ans = root->val;
-            // break;
-        }
-        if(root->right != NULL){
-            solve(root->right,i,k);
-        }
+//         i++;
+//         if(i == k){
+//             ans = root->val;
+//             // break;
+//         }
+//         if(root->right != NULL){
+//             solve(root->right,i,k);
+//         }
         
-        return ans;
+//         return ans;
         
-    }
+//     }
     
     int kthSmallest(TreeNode* root, int k) {
-        int i = 0;
-        ans = solve(root,i,k);
-        return ans;
+        stack<TreeNode *> st;
+        TreeNode *p = root;
+        while(p || !st.empty())
+        {
+            while(p)
+            {
+                st.push(p);
+                p = p->left;
+            }
+            p = st.top();
+            if(--k == 0)
+                return p->val;
+            st.pop();
+            p = p->right;
+        }
+        return -1;
     }
 };
