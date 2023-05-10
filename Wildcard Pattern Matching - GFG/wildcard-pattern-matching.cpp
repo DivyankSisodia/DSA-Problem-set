@@ -6,6 +6,8 @@ using namespace std;
 class Solution{
   public:
 /*You are required to complete this method*/
+    
+    // all *** string
     int dp[201][201];
     bool isAllStars(string & S1, int i) {
         for (int j = 0; j <= i; j++) {
