@@ -9,38 +9,18 @@ using namespace std;
 
 class Solution{
 public:
-    int solve(int i,int target,vector<int> &ans,vector<int> &arr)
-    {
-        if(target==0) return 0;
-        if(i==0)
-        {
-            if(target%arr[i]==0)
-            {
-                ans.push_back(arr[i]); // storing the values of coins
-                return target/arr[i];
-            }
-            else return INT_MAX;
-        }
-        
-        int nottake =INT_MAX;
-        int take=INT_MAX;
-        if(arr[i]<=target)
-        {
-            ans.push_back(arr[i]); // storing the values of coins
-            take=1+solve(i,target-arr[i],ans,arr); // for calculating the number of coins
-        }
-        else
-        nottake=solve(i-1,target,ans,arr);
-
-        return min(take,nottake);
-    }
     vector<int> minPartition(int N)
     {
         // code here
+        vector<int> coins = {2000,500,200,100,50,20,10,5,2,1};
         vector<int> ans;
-        vector<int> arr ={ 1, 2, 5, 10, 20, 50, 100, 200, 500, 2000 };
-        int mincoins=solve(9,N,ans,arr);
-        //cout<< mincoins <<endl;
+        
+        for(int i=0; i<coins.size(); i++){
+            while(coins[i]<=N){
+                ans.push_back(coins[i]);
+                N = N - coins[i];
+            }
+        }
         return ans;
     }
 };
