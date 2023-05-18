@@ -1,21 +1,26 @@
 class Solution {
 public:
-    int coinChange(vector<int> &coins, int amount) 
-    {
-        int dp[13][10001];
-        for(int am=0; am<=amount; am++)
-            dp[0][am] = am%coins[0]==0 ? am/coins[0] : 1e9;
-        for(int cur=1; cur<coins.size(); cur++)
-        {
-            for(int am=0; am<=amount; am++)
-            {
-                int doNotTakeCoin = 0 + dp[cur-1][am];
-                int takeCoin = INT_MAX;
-                if(coins[cur] <= am) 
-                    takeCoin = 1 + dp[cur][am-coins[cur]];
-                dp[cur][am] = min(takeCoin, doNotTakeCoin);
-            }
+    
+     int solve(vector<int>& coins, int amount, int n, vector<vector<int>>&dp){
+        // if amount is 0, then we need to take 0 coins to fulfill the amount
+        if(amount == 0) return 0;
+		// if no coins present, then we need to take infinite coins to fulfill the amount
+        if(n == 0) return INT_MAX-1;
+		// if already present in dp vector, we will directly return the value
+        if(dp[n][amount] != -1) return dp[n][amount];
+		// if the present coin is smaller than the amount, we can either take it or decide not to take it
+        if(coins[n-1] <= amount){
+            return dp[n][amount] = min(1 + solve(coins, amount-coins[n-1], n, dp), solve(coins, amount, n-1, dp));
         }
-        return (dp[coins.size()-1][amount] >= 1e9) ? -1 : dp[coins.size()-1][amount];
+		// else if the coin is larger than the amount, we can't take it
+        else{
+            return dp[n][amount] = solve(coins, amount, n-1, dp);
+        }
+    }
+    // unbounded knapsack
+    int coinChange(vector<int>& coins, int amount) {
+        int n = coins.size();
+        vector<vector<int>>dp(n+1,vector<int>(amount+1,-1));
+        return solve(coins,amount,n,dp) == (INT_MAX-1) ? -1 : solve(coins,amount,n,dp);
     }
 };
