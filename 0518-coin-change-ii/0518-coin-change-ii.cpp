@@ -4,7 +4,12 @@ public:
     int solve(int amount, vector<int>& coins, int i){
         
         if(i ==0){
-            return (amount%coins[i] == 0);
+            if(amount%coins[i] == 0){
+                return 1;
+            }
+            else{
+                return 0;
+            }
         }
         
         if(dp[i][amount] != -1){
