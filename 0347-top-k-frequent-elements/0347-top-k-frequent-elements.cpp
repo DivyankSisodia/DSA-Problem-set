@@ -3,24 +3,25 @@ public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
         priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
         
-        map<int,int> mp;
+        unordered_map<int,int> mp;
+        vector<int> ans;
         
         for(int i=0; i<nums.size(); i++){
             mp[nums[i]]++;
         }
-        // pq mein pair ke first ko vector mein dalna h
+        
         for(auto it: mp){
-            pq.push({it.second , it.first});
-            if(pq.size() >k){
+            pq.push({it.second, it.first});
+            if(pq.size()>k){
                 pq.pop();
+                // k--;
             }
         }
         
-        vector<int> ans;
-        
-        while(k--){
+        while(k!=0){
             ans.push_back(pq.top().second);
             pq.pop();
+            k--;
         }
         return ans;
     }
