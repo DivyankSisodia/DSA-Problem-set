@@ -1,26 +1,25 @@
 class Solution {
 public:
     int maxProduct(vector<int>& nums) {
-        int product = 1;
-        int maxi = nums[0];
-        for(int i=0; i<nums.size(); i++){
-            product = product * nums[i];
+        // int product = 1;
+        int ans = INT_MIN;
+        int prefix = 1;
+        int suffix = 1;
+        int n = nums.size();
+        
+        for(int i=0; i<n; i++){
+            if(prefix == 0){
+                prefix = 1;
+            }
+            if(suffix == 0){
+                suffix = 1;
+            }
             
-            maxi = max(product, maxi);
-            if(product == 0){
-                product = 1;
-            }
+            prefix = prefix * nums[i];
+            suffix = suffix * nums[n-i-1];
+            
+            ans = max(ans, max(prefix,suffix));
         }
-        
-        product = 1;
-        
-        for(int i=nums.size()-1; i>=0 ;i--){
-            product = product * nums[i];
-            maxi = max(maxi, product);
-            if(product == 0){
-                product = 1;
-            }
-        }
-        return maxi;
+        return ans;
     }
 };
