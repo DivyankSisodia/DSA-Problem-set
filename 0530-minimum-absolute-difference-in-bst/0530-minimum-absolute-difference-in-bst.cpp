@@ -11,25 +11,26 @@
  */
 class Solution {
 public:
-    int mini = INT_MAX;
-    TreeNode* temp = NULL;
+    
+    int ans = INT_MAX;
+    TreeNode* temp;
+    
     void inorder(TreeNode* root){
-        if(root == NULL){
+        if(root==NULL){
             return;
         }
-
         inorder(root->left);
-        if(temp != NULL){
-            mini = min(mini, abs(root->val - temp->val));
-        }
-        
+        if(temp!=NULL){
+            ans = min(ans, root->val - temp->val);
+        }   
         temp = root;
         
         inorder(root->right);
+        
     }
     
     int getMinimumDifference(TreeNode* root) {
         inorder(root);
-        return mini;
+        return ans;
     }
 };
