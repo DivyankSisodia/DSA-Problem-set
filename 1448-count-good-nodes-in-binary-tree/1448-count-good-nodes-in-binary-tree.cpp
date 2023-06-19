@@ -34,24 +34,3 @@ public:
         return ans;
     }
 };
-
-//  int ans=0;
-// void exe(TreeNode* root, int curr){
-//      if(root==NULL)
-//         return;
-
-// if(root->val>=curr){
-// curr=root->val;
-// ans++;
-//     }
-// exe(root->left,curr);
-// exe(root->right,curr);
-
-//     }
-
-// int goodNodes(TreeNode* root) {
-//    if(root==NULL)
-//    return 0;
-//     exe(root,root->val);
-//     return ans;    
-// }
