@@ -7,18 +7,34 @@ public:
         int n = nums.size();
         int zerocnt = 0;
         
+        // while(j<n){
+        //     if(nums[j] == 0){
+        //         zerocnt++;
+        //     }
+        //     while(zerocnt > k){
+        //         if(nums[i] == 0){
+        //             zerocnt--;
+        //         }
+        //         i++;
+        //     }
+        //     ans = max(ans, j-i+1);
+        //     j++;
+        // }
+        // return ans;
+        
         while(j<n){
             if(nums[j] == 0){
                 zerocnt++;
             }
-            while(zerocnt > k){
+            if(zerocnt > k){
                 if(nums[i] == 0){
                     zerocnt--;
                 }
                 i++;
             }
-            
-            ans = max(ans, j-i+1);
+            if(zerocnt <= k){
+                ans = max(ans, j-i+1);
+            }
             j++;
         }
         return ans;
