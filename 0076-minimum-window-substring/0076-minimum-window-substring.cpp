@@ -2,33 +2,33 @@ class Solution {
 public:
     string minWindow(string s, string t) {
         int n = s.size();
-        map<char, int> mp;
-        int i=0; 
-        int j=0;
         int ans = 1e9;
+        int i = 0;
+        int j = 0;
+        unordered_map<char,int> mp;
         
-        for(auto it: t){
-            mp[it]++;
+        for(int k=0; k<t.size(); k++){
+            mp[t[k]]++;
         }
         
+        int needed = mp.size();
         int start = 0;
-        int cnt = mp.size();
         
         while(j<n){
             mp[s[j]]--;
             if(mp[s[j]] == 0){
-                cnt--;
+                needed--;
             }
             
-            if(cnt == 0){
-                while(cnt == 0){
-                    if(ans > j-i+1){
+            if(needed == 0){
+                while(needed == 0){
+                    if(ans > (j-i+1)){
                         ans = j-i+1;
                         start = i;
                     }
                     mp[s[i]]++;
                     if(mp[s[i]] > 0){
-                        cnt++;
+                        needed++;
                     }
                     i++;
                 }
@@ -36,7 +36,7 @@ public:
             j++;
         }
         if(ans != 1e9){
-            return s.substr(start,  ans);
+            return s.substr(start, ans);
         }
         return "";
     }
